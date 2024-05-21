@@ -1,0 +1,27 @@
+.outer_border {
+    border: 2px solid;
+    padding: 20px;
+    text-align: center;
+}
+
+.border {
+    border: 2px solid;
+    padding: 5px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.fill {
+    height: 50px;
+    width: 50%;
+}
+
+.nav-link {
+    padding: 5px;
+}
+
+.padded {
+    padding: 5px;
+    padding-block: 5px;
+    padding-inline: 5px;
+}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ quiz.quizName }}</title>
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">-->
+{% endblock %}
+
+
+{% block body %}
+<div class="container border" style="text-align: center; max-width: 70%;">
+    <h2>{{ quiz.quizName }}</h2>
+    <h4>{{ quiz.quizDescription }}</h4>
+    
+        {% for question in quiz.questions %}
+            <div>
+                <span>{{ quiz.questions[question]["question_text"] }}</span><br>
+                <table>
+                    {% for answer in quiz.questions[question]["answers"] %}
+                    <!-- REMOVE THIS TEMPLATE CODE IF TO GET RID OF CORRECT HIGHLIGHT -->
+                    <tr 
+                    {% if quiz.questions[question]["answers"][answer]["is_correct"] %}
+                        style="background-color: blue;"
+                    {% else %}
+                        {% if quiz.questions[question]["answers"][answer]["is_correct"]==False %}
+                            style="background-color: red;"
+                        {% else %}
+                            {% if quiz.questions[question]["answers"][answer]["answer"] %}
+                                style="background-color: green;"
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}>
+                        <td>{{ quiz.questions[question]["answers"][answer]["answerText"] }}</td>
+                        <td><input name="{{ question }}" value='{{ answer }}' type='{{ quiz.questions[question]["type"] }}' readonly {% if quiz.questions[question]["answers"][answer]["value"]==True %}checked{% endif %} onclick="return false;"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+        <!--<input type="submit" value="Submit" class="btn btn-primary" style="width: 25%; margin-bottom: 5px;">-->
+    
+</div>
+
+<div>
+    <template>
+        
+    </template>
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ quiz.quizName }}</title>
+<!--<link rel="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">-->
+{% endblock %}
+
+
+{% block body %}
+<div class="container border" style="text-align: center; max-width: 70%;">
+    <h2>{{ quiz.quizName }}</h2>
+    <h4>{{ quiz.quizDescription }}</h4>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger" role="alert">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+        {% for question in quiz.questions %}
+            <div>
+                <span>{{ quiz.questions[question]["question_text"] }}</span><br>
+                <table>
+                    {% for answer in quiz.questions[question]["answers"] %}
+                    <tr 
+                    {% if quiz.questions[question]["answers"][answer]["is_correct"]==False %}
+                        style="background-color: red;"
+                    {% else %}
+                        {% if quiz.questions[question]["answers"][answer]["is_correct"] %}
+                            style="background-color: green;"
+                        {% else %}
+                            {% if quiz.questions[question]["answers"][answer]["answer"] %}
+                                style="background-color: blue;"
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}>
+                        <td>{{ quiz.questions[question]["answers"][answer]["answerText"] }}</td>
+                        <td><input name="{{ question }}" value='{{ answer }}' type='{{ quiz.questions[question]["type"] }}' readonly {% if quiz.questions[question]["answers"][answer]["value"]==True %}checked{% endif %} onclick="return false;"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endfor %}
+        <h3>Score: {{ quiz.score_value }}/{{ quiz.max_score }}</h3>
+        <!--<input type="submit" value="Submit" class="btn btn-primary" style="width: 25%; margin-bottom: 5px;">-->
+    
+</div>
+
+<div>
+    <template>
+        
+    </template>
+</div>
+
+{% endblock %}

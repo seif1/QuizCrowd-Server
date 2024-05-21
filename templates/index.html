@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Quiz Crowd</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container" style="text-align: center; max-width: 70%;">
+    <h2>Quiz Crowd</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger" role="alert">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <a href="/register">Register</a>
+    <a href="/login">Log in</a>
+    <a href="/logout">Log out</a>
+    <br>
+    <a href="/create">Create</a>
+    <a href="/list">List</a>
+</div>
+{% endblock %}

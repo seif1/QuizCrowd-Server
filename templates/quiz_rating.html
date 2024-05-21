@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container" style="text-align: center; max-width: 70%;">
+    <form action="/rate_and_submit/{{ quiz_id }}" method="POST">
+        <textarea id="json_area" name="json" hidden>{{ json }}</textarea>
+        <h2>Rate the Quiz</h2>
+        1:&nbsp<input id="rate_1" type="radio" name="rating" value=1 required>&nbsp
+        2:&nbsp<input id="rate_2" type="radio" name="rating" value=2 required>&nbsp
+        3:&nbsp<input id="rate_3" type="radio" name="rating" value=3 required>&nbsp
+        4:&nbsp<input id="rate_4" type="radio" name="rating" value=4 required>&nbsp
+        5:&nbsp<input id="rate_5" type="radio" name="rating" value=5 required>
+        <br><br>
+
+        <h5>Suggest improvements: (not required)</h5>
+        <textarea id="suggestion_area" name="suggestions" cols="100" rows="15" maxlength="1024"></textarea>
+        <br><br>
+        <input type="submit" value="Submit" class="btn btn-primary" style="width: 25%; margin-bottom: 5px;">
+    </form>
+</div>
+{% endblock %}

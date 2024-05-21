@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Quiz List</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/grid.css') }}">
+{% endblock %}
+
+
+{% block body %}
+<div class="container border" style="text-align: center; max-width: 70%;">
+    <h2>Quiz List</h2>
+    {% if quizes|length < 1 %}
+    <h4 style="text-align: center">There are no quizes. Create one below!</h4>
+    {% else %}
+    <!--<label for="search_text">Filter: </label>-->
+    <input type="search" id="search_text" placeholder="Search...">&nbsp&nbsp<select name="search_by" id="search_by">
+        <option value="data-quiz_name">Name</option>
+        <option value="data-quiz_creator">Creator</option>
+    </select>
+    <div class="grid-container" id="quiz_list">
+        {% for quiz in quizes %}
+        <button data-quiz_name="{{quiz.quizName}}" data-quiz_creator="{{quiz.creator}}">{% if delete==False %}<a href="/quiz/{{ quiz.id }}">{% else %}<a href="/delete_quiz/{{ quiz.id }}"></a>{% endif %}
+            <h5 style="text-align: left;">
+                Name: {{quiz.quizName}}
+            </h5>
+            <div style="text-align: left;">
+                <b>Description:</b> <p>{{ quiz.quizDescription }}</p>
+            </div>
+            <div style="text-align: left;">
+                <b>Creator:</b> {{ quiz.creator }}
+            </div>
+            {% if quiz.times_taken %}
+            <div style="text-align: left;">
+                <b>Average Score:</b> {{ quiz.summed_scores/quiz.times_taken }}/{{quiz.questions|length}}.0<br>
+                <b>Average Rating:</b> {{ quiz.summed_ratings/quiz.times_rated }}/5.0
+            </div>
+            {% else %}
+            <div style="text-align: left;">
+                <b>Average Score:</b> Not Taken Yet<br>
+                <b>Average Rating:</b> Not Taken Yet
+            </div>
+            {% endif %}
+        </a></button>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <a href="/create">Create</a>
+</div>
+
+<script src="{{ url_for('static', filename='js/list_search_bar.js') }}"></script>
+{% endblock %}

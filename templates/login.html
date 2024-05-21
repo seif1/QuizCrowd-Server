@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Login</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container" style="text-align: center; max-width: 70%;">
+    <h2>Log In</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger" role="alert">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <a href="/register">Register?</a>
+    <form action="/login" method="POST">
+        <label for="user_name">User Name:</label><br>
+        <input type="text" id="user_name" name="user_name"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <label for="remember">Remember:</label><br>
+        <input type="checkbox" id="remember" name="remember"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

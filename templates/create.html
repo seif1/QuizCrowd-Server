@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Quiz Creator</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container" style="text-align: center; max-width: 70%;">
+    <h2>Quiz Creator</h2>
+    <form id="form" class="outer_border">
+        <div class="row" style="text-align: left;">
+            <label for="quizName" class="input-lg">Quiz Name:</label><br>
+            <input id="quizName" name="quizName" class="input-lg" style="width: 100%;" autocomplete="off" minlength=1 maxlength="128" placeholder="Quiz Name" required autofocus>
+        </div><br>
+        <div class="row">
+            <div style="text-align: left;">
+            <label style="text-align: left;" for="quizDescription" class="input-lg">Quiz Description:</label><br>
+            <textarea  id="quizDescription" name="quizDescription" class="input-lg" style="width: 100%; resize: none;" autocomplete="off" placeholder="Quiz Description" maxlength=512 rows="6" required></textarea>
+            </div> 
+        </div>
+        <div class="row">
+            <h3>Question List</h3>
+            <div id="question_list">
+                                
+            </div><br>
+            <button type="button" class="btn btn-default" onclick="add_question('multiChoice')">Add Multiple Choice Question</button>
+            <button type="button" class="btn btn-default" onclick="add_question('checkBox')">Add Checkbox Question</button><br>
+        </div><br><br>
+        <button type="submit" formmethod="post" class="btn btn-success btn-lg" style="width: 50%;">Submit</button>
+    </form>
+</div>
+
+<div> <!--Templates-->
+    <template id="question_template">
+        <div id="template_id" class="border">
+            <div style="text-align: right;">
+                <span id="question_type"></span>
+                <button id="delete_question_button" type="button" class="btn btn-danger">X</button>
+            </div>
+            <h4 id="question_name">Question #</h4>
+                
+            <label id="text_label" style="text-align: left;" for="text_label_area">Question Text:</label><br>
+            <textarea  id="text_label_area" name="text_label_area" style="width: 100%; resize: none;" autocomplete="off" placeholder="Question Text" maxlength=512 rows="3" required></textarea>
+                
+            <button id="add_answer_button" type="button" class="btn btn-primary" style="width: 25%; margin-bottom: 5px;">Add Answer</button>
+            <div id="answer_list">
+                        
+            </div>
+        </div>
+    </template>
+    <template id="answer_template">
+        <div id="answer_id" style="margin-bottom: 5px;">
+            <input type="radio" id="answer_value" name="answer_value"> <input type="text" id="answer_text" placeholder="Answer Text here" style="width: 90%;" required>
+            <button id="delete_answer_button" type="button" class="btn btn-danger">X</button>
+        </div>
+    </template>
+</div>
+<script src="{{ url_for('static', filename='js/quiz_creator.js') }}"></script>
+{% endblock %}
